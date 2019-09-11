@@ -1,0 +1,40 @@
+body {
+    background-color: black;
+    color: white;
+}
+header, nav, footer
+{
+    text-align: center;
+}
+nav a:hover
+{
+ border-bottom:2px orange solid;
+ font-size: 2em;
+ transition: .9s;
+}
+#me, #welcomeText, ul
+{
+    display: flex;
+    flex-direction: column;
+}
+footer
+{
+    clear:left;
+    font-size: .8em;
+    color: gray;
+}
+figure /* NEW */
+{
+    position:fixed;
+    top:0;
+    right:0;
+}
+#endText /* NEW */
+{
+    font-size: x-small;
+}
+#logoId
+{
+    right: 30px;
+}
+/* 5 MORE RULES */

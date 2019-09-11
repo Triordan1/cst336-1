@@ -1,3 +1,4 @@
 notes:
 npn install: needed once not needed everytime
 npm start: starts script to start npm
+postion: fixed = it always stays in the same place even if page is scrolled
