@@ -25,20 +25,24 @@ footer
 }
 figure /* NEW */
 {
-    position:fixed;
+    position:Relative;
     top:0;
-    right:0;
+    right:50;
 }
 #endText /* NEW */
 {
     font-size: x-small;
+    text-align: left;
 }
-#logoId
-{
-    right: 30px;
-}
-hr
+hr /* NEW */
 {
     width:50%;
 }
-/* 5 MORE RULES */
+ul
+{
+    text-align: left;
+}
+h2
+{
+    text-decoration: underline;
+}
