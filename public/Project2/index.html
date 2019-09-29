@@ -1,0 +1,92 @@
+<!DOCTYPE HTML>
+<html lang = "en">
+    <head>
+        <meta charset = "utf-8">
+        <title>Shopping Cart</title>
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <style>
+            @import url("css/styles.css");
+        </style>
+        <script src = "js/shoppingCartScripts.js"></script>
+    </head>
+    <body>
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <section class = "jumbotron text-center">
+        <div class = "containter">
+            <h1 class = "jumbotron-heading">Shopping Cart</h1>
+        </div>
+    </section>
+    <div class = "container mb-4">
+        <div class = "row">
+            <div class = "col-12">
+                <div class = "table-responsive">
+                    <table class = "table table-striped" id = "myTable">
+                        <thead>
+                            <tr>
+                                <th score = "col"></th>
+                                <th score = "col">Product</th>
+                                <th score = "col" class = "text-center">Quantity</th>
+                                <th score = "col" class = "text-right">Price</th>
+                                <th> </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><img src="img/headphones.jpg" /></td>
+                                <td>Headphones</td>
+                                <td>In stock</td>
+                                <h3 id = "validationFdbk1"></h3>
+                                <td><input class = "form-control" type = "number" min = "0" id = "obj1"></td>
+                                <td class = "text-right" id = "price1">$64.25</td>
+                                <td class = "text-right"><button class = "btn btn-sm btn-danger" id = "setToZero"><i class = "fa fa-trash"></i></button></td>
+                            </tr>
+                            <tr>
+                                <td><img src="img/computerMouse.jpg" /></td>
+                                <td>Computer Mouse</td>
+                                <td>In stock</td>
+                                <h3 id = "validationFdbk2"></h3>
+                                <td><input class = "form-control" type = "number" min = "0" id = "obj2"></td>
+                                <td class = "text-right" id = "price2">$25.44</td>
+                                <td class = "text-right"><button class = "btn btn-sm btn-danger" id = "alsoSetToZero"><i class = "fa fa-trash"></i></button></td>
+                            </tr>
+                            <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>Sub-Total</td>
+                            <td class = "text-right" id = "sub-total"></td>
+                            </tr>
+                            <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>Tax</td>
+                            <td class = "text-right" id = "tax"></td>
+                            <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td><strong>Total</strong></td>
+                            <td class = "text-right" id = "total"></td>
+                            </tr>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class = "col mb-2">
+                <div class = "row">
+                    <div class = "col-sm-12 col-md-6 text-right">
+                        <button class = "btn btn-lg btn-block btn-success text-uppercase">Update Prices</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </body>
+</html>
