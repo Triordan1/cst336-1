@@ -56,7 +56,7 @@ $(document).ready(function(){
         tax = tax.toFixed(2);
         $("#tax").html(`$${tax}`);
         let final = 0.0;
-        final = parseFloat(total + tax);
+        final = parseFloat(total) + parseFloat(tax);
         final = final.toFixed(2);
         $("#total").html(`<strong>$${final}</strong>`);
     }

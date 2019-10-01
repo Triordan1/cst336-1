@@ -1,0 +1,164 @@
+<html>
+
+<head>
+    <title></title>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+    <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+
+    <style>
+        tr,
+        td {
+            border: 1px gray solid;
+            text-align: right;
+            padding: 5px;
+        }
+
+        body,
+        th {
+            text-align: center;
+        }
+
+        table {
+            margin: 0 auto;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1 class="jumbotron"> Holiday Shopping </h1>
+
+    <h2> Cart </h2>
+
+    <table>
+        <tr>
+            <th>Product</th>
+            <th>Unit Price</th>
+            <th> Quantity </th>
+            <th>Total</th>
+        </tr>
+
+        <tr>
+            <td>Fruit Cake</td>
+            <td>$30</td>
+            <td><input type="text" class="qty" id="qty_item1" size="5" value="1"> </td>
+            <td id="totalItem1">$30</td>
+        </tr>
+
+        <tr>
+            <td>Piñata (Medium size)</td>
+            <td>$20</td>
+            <td><input type="text" class="qty" id="qty_item2" size="5" value="2"> </td>
+            <td id="totalItem2">$40</td>
+        </tr>
+
+        <tr>
+            <td>Shipping</td>
+            <td></td>
+            <td> </td>
+            <td id="shippingCost"></td>
+        </tr>
+
+        <tr>
+            <td>Subtotal</td>
+            <td> </td>
+            <td> </td>
+            <td id="subtotal"></td>
+        </tr>
+
+        <tr>
+            <td>Tax (10%)</td>
+            <td></td>
+            <td></td>
+            <td id="tax"></td>
+        </tr>
+
+        <tr>
+            <td>Total</td>
+            <td></td>
+            <td></td>
+            <td id="total"></td>
+        </tr>
+    </table>
+
+    <h3>Shipping & handling</h3>
+    <input type="radio" name="gender" value="fast" id = "fast">Next-day delivery $15.00<br>
+    <input type="radio" name="gender" value="medium" id = "medium">Three-day delivery $10.00<br>
+    <input type="radio" name="gender" value="slow" id = "slow">Regular Delivery (5-8 days) $5.00<br><br>
+
+    <input type="checkbox" id="terms" name="terms">
+    <span id="termsMessage">I accept the terms of this purchase.</span>
+
+    <br><br>
+
+    <input type="submit" id="submit" value="CONFIRM PURCHASE" />
+    <script>
+        $(document).ready(function() {
+            $("#submit").on("click", totalPrice);
+
+            var total = 0.0;
+            $(".qty").on('change', totalPrice());
+
+            function priceChange() {
+                total = 0;
+                $("validationFdbk").html("");
+                var priceA = 30;
+                priceA = parseFloat(priceA);
+                var priceB = 20;
+                priceB = parseFloat(priceB);
+                let num1 = $("#qty_item1").val();
+                num1 = parseInt(num1);
+                let num2 = $("#qty_item2").val();
+                num2 = parseInt(num2);
+                if (num1 >= 0 && num2 >= 0) {
+                    total += (priceA * num1 + priceB * num2);
+                    total = total.toFixed(2);
+                }
+                else {
+                    alert("Please only enter numbers");
+                    total = 0;
+                }
+            }
+            function shippingclick(){
+                let shipping = $("input[name=gender]:checked").val();
+                if(shipping == "fast")
+                {
+                    return 15.00;
+                }
+                else if( shipping == "medium")
+                {
+                    return 10.00;
+                }
+                else if(shipping=="slow")
+                {
+                    return 5.00;
+                }else{
+                    return 0;
+                }
+                
+            }
+            function totalPrice() {
+                priceChange();
+                $("#subtotal").html(`$${total}`);
+                let tax = total*.10;
+                tax = parseFloat(tax);
+                tax = tax.toFixed(2);
+                $("#tax").html(`$${tax}`);
+                let final = 0.0;
+                let shipping = shippingclick();
+                $("#shippingCost").html(`$${shipping}`);
+                shipping = parseFloat(shipping);
+                console.log(shipping);
+                console.log(tax);
+                final = parseFloat(total) + parseFloat(tax) + parseFloat(shipping);
+                final = final.toFixed(2);
+                console.log(final );
+                $("#total").html(`$${final}`);
+            }
+        });
+    </script>
+</body>
+
+</html>
