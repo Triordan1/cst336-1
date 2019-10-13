@@ -1,0 +1,191 @@
+<html>
+
+<head>
+
+    <title>CST336 Midterm Exam Practice</title>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+    <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+
+    <style>
+
+        tr, td{
+
+            border:1px gray solid;
+
+            text-align: right;
+
+            padding:5px;
+
+        }
+
+        body, th {
+
+            text-align: center;
+
+        }
+
+        table {
+
+            margin: 0 auto;
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <h1 class="jumbotron"> End-of-Summer Sale! </h1>
+
+    <h2> Cart </h2>    
+
+    <table>
+
+    <tr>
+
+        <th>Product</th>
+
+        <th>Unit Price</th>
+
+        <th> Quantity </th>
+
+        <th>Total</th>
+
+    </tr>
+
+    <tr>
+
+        <td id = "product"> </td>
+
+        <td id = "price"> </td>
+
+        <td><input type="text" id = "quantity" size="5"></td>
+
+        <td id = "total"> </td>
+
+    </tr>
+    <tr>
+        <td id = "product1"> </td>
+        <td id = "price1"> </td>
+        <td><input type="text" id = "quantity1" size="5"></td>
+        <td id = "total1"> </td>
+        
+    </tr>
+
+    <tr>
+
+        <td>Discount</td>
+
+        <td> </td>
+
+        <td> </td>
+
+        <td> </td>
+
+    </tr>
+
+   <tr>
+
+        <td>Shipping</td>
+
+        <td> </td>
+
+        <td> </td>
+
+        <td> </td>
+
+    </tr>    
+
+    <tr>
+
+        <td>Subtotal</td>
+
+        <td> </td>
+
+        <td> </td>
+
+        <td id = "sub"> </td>   
+
+    </tr>             
+
+
+
+    <tr>
+
+        <td>Tax (10%)</td>
+
+        <td></td>
+
+        <td></td>
+
+        <td id = "tax"> </td>       
+
+    </tr>
+
+      <tr>
+
+        <td>Total</td>
+
+        <td></td>
+
+        <td></td>
+
+        <td id = "fTotal"> </td>
+
+    </tr>
+
+    </table>
+
+    <br><br>
+
+    <strong>Promo Code: </strong> <input type="text">
+
+
+    <h3>Shipping & handling</h3>
+    <script>
+        $(document).ready(function(){
+            let subtotal = 0;
+            $.ajax({
+                method: "GET",
+                url: "https://cst336.herokuapp.com/projects/api/promo_products.php",
+                dataType: "json",
+                data: { "product": ""},
+                success: function(result, status) 
+                {
+                    for (let i = result.length - 1; i > 0; i--)
+                    {
+                        let j = Math.floor(Math.random() * (i + 1));
+                        [result[i], result[j]] = [result[j], result[i]];
+                    }
+                   $("#product").html(result[0].productName);
+                   $("#price").html(result[0].price);
+                   $("#quantity").val(result[0].qty);
+                   $("#product1").html(result[1].productName);
+                   $("#price1").html(result[1].price);
+                   $("#quantity1").val(result[1].qty);
+                   let total = parseInt(result[0].price) * parseInt(result[0].qty);
+                   $("#total").html("$" + total);
+                   let total1 = parseInt(result[1].price) * parseInt(result[1].qty);
+                   $("#total1").html("$" + total1);
+                   subtotal = total + total1;
+                   displayTotals();
+                   
+                }
+            });
+            function displayTotals(){
+                $("#sub").html("$" + subtotal);
+                let taxed = subtotal * .1;
+                $("#tax").html("$" + taxed);
+                let final = subtotal + taxed;
+                $("#fTotal").html("$" + final);
+                
+            }
+            
+        });
+    </script>
+</body>
+
+</html>

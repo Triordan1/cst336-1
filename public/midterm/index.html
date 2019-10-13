@@ -1,0 +1,169 @@
+<html>
+    <head>
+        <title>CST336 Midterm Exam</title>
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src = "https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js" ></script>
+        <style>
+            tr, td{
+                border:1px gray solid;
+                text-align: right;
+                padding: 5px;
+                background-color: lightgray;
+            }
+            body, th{
+                text-align: center;
+            }
+            table{
+                margin: 0 auto;
+            }
+        </style>
+    </head>
+    <body>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/oxuRxtrO2Ag" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          
+        <table>
+            <tr>
+                <td><button id = "comments">See Comments</button></td>
+                <td><button id = "question">Answer Question</button></td>
+                <td><button id = "likeButton"><img src = "img/like.png"></button></td>
+                <td><button id = "cancelLikeButton"><img src = "img/cancel-like.png"></button></td>
+                <td id = "like"> </td>
+                <td><button id = "dislikeButton"><img src = "img/dislike.png"></button></td>
+                <td><button id = "cancelDislikeButton"><img src = "img/cancel-dislike.png"></button></td>
+                <td id = "dislikes"> </td>
+            </tr>
+        </table>
+         <div id ="show"></div>
+         <div id = "quiz">
+             <h3>WHAT WAS THIS VIDEO ABOUT</h3>
+         <select id = "options">
+              <option value="" selected>Select best answer</option>
+              <option value="garb1">How to use a computer</option>
+              <option value="garb2">What is a computer</option>
+              <option value="correct">How to use bash shell</option>
+        </select>
+         </div>
+         <div id ="feedBack"></div>
+        <script>
+        
+            $("#quiz").hide();
+            $(document).ready(function(){
+                $.ajax({
+                    method: "GET",
+                    url: "https://cst336.herokuapp.com/projects/api/videoLikesAPI.php?videoId=oxuRxtrO2Ag",
+                    dataType: "json",
+                    success: function(result,status)
+                    {
+                       $("#like").html(result.likes);
+                       $("#dislikes").html(result.dislikes);
+                    }
+                });//ajax
+                $("#likeButton").on("click",function(){
+                    $.ajax({
+                        method: "GET",
+                        url: "https://cst336.herokuapp.com/projects/api/videoLikesAPI.php?videoId=oxuRxtrO2Ag&action=like",
+                        dataType: "json",
+                        success: function(result,status)
+                        {
+                            $("#like").html(result.likes);
+                            $("#dislikes").html(result.dislikes);
+                            $("#likeButton").hide();
+                            $("#cancelLikeButton").show();
+                        }
+                    });//ajax
+                });//on
+                $("#dislikeButton").on("click",function(){
+                    $.ajax({
+                        method: "GET",
+                        url: "https://cst336.herokuapp.com/projects/api/videoLikesAPI.php?videoId=oxuRxtrO2Ag&action=dislike",
+                        dataType: "json",
+                        success: function(result,status)
+                        {
+                            $("#like").html(result.likes);
+                            $("#dislikes").html(result.dislikes);
+                            $("#dislikeButton").hide();
+                            $("#cancelDislikeButton").show();
+                        }
+                    });//ajax
+                });//on
+                $("#cancelLikeButton").on("click",function(){
+                    $.ajax({
+                        method: "GET",
+                        url: "https://cst336.herokuapp.com/projects/api/videoLikesAPI.php?videoId=oxuRxtrO2Ag&action=cancel_like",
+                        dataType: "json",
+                        success: function(result,status)
+                        {
+                            $("#like").html(result.likes);
+                            $("#dislikes").html(result.dislikes);
+                            $("#cancelLikeButton").hide();
+                            $("#likeButton").show();
+                        }
+                    });//ajax
+                });//on
+                $("#cancelDislikeButton").on("click",function(){
+                    $.ajax({
+                        method: "GET",
+                        url: "https://cst336.herokuapp.com/projects/api/videoLikesAPI.php?videoId=oxuRxtrO2Ag&action=cancel_dislike",
+                        dataType: "json",
+                        success: function(result,status)
+                        {
+                            $("#like").html(result.likes);
+                            $("#dislikes").html(result.dislikes);
+                            $("#cancelDislikeButton").hide();
+                            $("#dislikeButton").show();
+                        }
+                    });//ajax
+                });//on
+                $("#comments").on("click",function(){
+                    $.ajax({
+                        method: "GET",
+                        url: "https://cst336.herokuapp.com/projects/api/videoLikesAPI.php?videoId=oxuRxtrO2Ag&action=comments",
+                        dataType: "json",
+                        success: function(result,status)
+                        {
+                           for (let i = result.length - 1; i > 0; i--)
+                            {
+                                let j = Math.floor(Math.random() * (i + 1));
+                                [result[i], result[j]] = [result[j], result[i]];
+                            }
+                            for(let i = 0; i < result.length; i++)
+                            {
+                                $("#show").append(`${result[i].author} ${result[i].date}<br>
+                                ${result[i].comment} <br>`);
+                                for(let j = 0; j < result[i].rating; j++)
+                                {
+                                    $("#show").append(`<img src = "img/star.png">`);
+                                }
+                                $("#show").append("<br>");
+                            }
+                        }
+                    });//ajax
+                    $("#show").show();
+                    $("#quiz").hide();
+                    $("#feedBack").hide();
+                });//on
+                $("#question").on("click",function() {
+                    //$("#aComment").hide();
+                    $("#show").hide();
+                    $("#quiz").show();
+                });//on
+                $("#options").change(function(){
+                    $("#feedBack").show();
+                    var answer = $( "#options option:selected" ).text();
+                    if(answer == "How to use bash shell")
+                    {
+                        $("#feedBack").html("CORRECT!");
+                        $("#feedBack").attr("class", "bg-success text-white");
+                    }
+                    else
+                    {
+                        $("#feedBack").html("INCORRECT!");
+                        $("#feedBack").attr("class", "bg-warning text-white");
+                    }
+                });
+                
+            });//document
+        </script>
+    </body>
+</html>
